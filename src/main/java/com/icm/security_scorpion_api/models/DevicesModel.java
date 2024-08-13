@@ -25,7 +25,7 @@ public class DevicesModel {
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]+$", message = "Name must be alphanumeric and can include spaces")
+    @Pattern(regexp = "^[a-zA-Z0-9\\s-]+$", message = "Name must be alphanumeric and can include spaces and hyphens")
     @Column(nullable = false, length = 100)
     private String name;
 
