@@ -9,18 +9,18 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("Cliente conectado: " + session.getId());
+        System.out.println("Cliente conectado (s): " + session.getId());
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println("Mensaje recibido: " + message.getPayload());
+        System.out.println("Mensaje recibido (s): " + message.getPayload());
         // Procesar el mensaje y enviar una respuesta si es necesario
         session.sendMessage(new TextMessage("Mensaje recibido: " + message.getPayload()));
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("Cliente desconectado: " + session.getId());
+        System.out.println("Cliente desconectado (s): " + session.getId());
     }
 }
