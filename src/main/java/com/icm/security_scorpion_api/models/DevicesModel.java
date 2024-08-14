@@ -27,7 +27,7 @@ public class DevicesModel {
     @Size(max = 100, message = "Name must not exceed 100 characters")
     @Pattern(regexp = "^[a-zA-Z0-9\\s-]+$", message = "Name must be alphanumeric and can include spaces and hyphens")
     @Column(nullable = false, length = 100)
-    private String name;
+    private String nameDevice;
 
     @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$", message = "Invalid IP address format")
     @Column(nullable = true, length = 15)
