@@ -39,7 +39,7 @@ public class DevicesService {
 
     public DevicesModel update(Long devicesId, @Valid DevicesModel devicesModel) {
         DevicesModel existing = getDeviceById(devicesId);
-        existing.setName(devicesModel.getName());
+        existing.setNameDevice(devicesModel.getNameDevice());
         existing.setIpLocal(devicesModel.getIpLocal());
         return devicesRepository.save(existing);
     }
