@@ -41,6 +41,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
             if (s.isOpen()) {
                 try {
                     s.sendMessage(new TextMessage("reboot"));
+                    System.out.println("Reinicio de Clientes (s): reboot ");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
