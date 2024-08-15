@@ -12,11 +12,4 @@ public class SecurityScorpionApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SecurityScorpionApiApplication.class, args);
 	}
-
-	@Bean
-	CommandLineRunner init(MyWebSocketHandler webSocketHandler) {
-		return args -> {
-			webSocketHandler.sendRebootMessage();
-		};
-	}
 }
