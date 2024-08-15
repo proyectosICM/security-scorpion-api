@@ -14,9 +14,8 @@ public class SecurityScorpionApiApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(MyWebSocketHandler webSocketHandler) {
+	CommandLineRunner init(MyWebSocketHandler webSocketHandler) {
 		return args -> {
-			// Envía el mensaje "reboot" a todos los clientes WebSocket cuando la aplicación se inicie
 			webSocketHandler.sendRebootMessage();
 		};
 	}
