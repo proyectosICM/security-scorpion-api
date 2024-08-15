@@ -35,4 +35,16 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
         sessions.remove(session);
         System.out.println("Cliente desconectado (s): " + session.getId());
     }
+
+    public void sendRebootMessage() {
+        for (WebSocketSession s : sessions) {
+            if (s.isOpen()) {
+                try {
+                    s.sendMessage(new TextMessage("reboot"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
