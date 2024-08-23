@@ -1,5 +1,7 @@
 package com.icm.security_scorpion_api.controller;
 
+import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
+import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.services.DevicesService;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,10 +30,13 @@ public class DevicesController {
         try {
             List<DevicesModel> devices = devicesService.findByDeviceGroupModelIdAuth(username, password);
             return new ResponseEntity<>(devices, HttpStatus.OK);
-        } catch (EntityNotFoundException ex) {
+        } catch (InvalidCredentialsException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        } catch (GroupNotActiveException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
         }
     }
+
 
     @GetMapping("/group/{deviceGroupModelId}")
     public ResponseEntity<List<DevicesModel>> findByDeviceGroupModelId(@PathVariable @NotNull Long deviceGroupModelId) {

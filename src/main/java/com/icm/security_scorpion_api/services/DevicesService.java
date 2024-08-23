@@ -1,5 +1,7 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
+import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
 import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
@@ -39,10 +41,10 @@ public class DevicesService {
             if (dg.get().isActive()) {
                 return devicesRepository.findByDeviceGroupModelId(dg.get().getId());
             } else {
-                throw new EntityNotFoundException("The device group is not active.");
+                throw new GroupNotActiveException("The device group is not active.");
             }
         } else {
-            throw new EntityNotFoundException("Invalid username or password.");
+            throw new InvalidCredentialsException("Invalid username or password.");
         }
     }
     /* --- */
