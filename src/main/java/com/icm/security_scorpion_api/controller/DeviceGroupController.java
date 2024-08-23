@@ -1,8 +1,11 @@
 package com.icm.security_scorpion_api.controller;
 
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
+import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.services.DeviceGroupService;
+import com.icm.security_scorpion_api.services.DevicesService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

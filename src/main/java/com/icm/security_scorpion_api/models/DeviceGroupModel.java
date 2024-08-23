@@ -45,10 +45,6 @@ public class DeviceGroupModel {
     @Column(nullable = false)
     private boolean isActive = true;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "deviceGroupModel", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DevicesModel> devices;
-
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;

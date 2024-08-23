@@ -1,8 +1,10 @@
 package com.icm.security_scorpion_api.services;
 
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
+import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,10 @@ import java.util.Optional;
 public class DeviceGroupService {
     @Autowired
     private DeviceGroupRepository deviceGroupRepository;
+
+    @Autowired
+    private DevicesService devicesService;
+
 
     // Helper method to retrieve a DeviceGroupModel by ID, throwing an exception if not found
     private DeviceGroupModel getDeviceGroupById(Long deviceGroupId) {
@@ -54,7 +60,20 @@ public class DeviceGroupService {
     }
 
     // Delete a DeviceGroupModel by ID
+    @Transactional
     public void deleteById(Long deviceGroupId) {
+        DeviceGroupModel deviceGroup = getDeviceGroupById(deviceGroupId);
+
+        // Obtener todos los dispositivos asociados a este grupo
+        List<DevicesModel> devices = devicesService.findByDeviceGroupModelId(deviceGroupId);
+
+        // Desvincular cada dispositivo de su grupo
+        for (DevicesModel device : devices) {
+            device.setDeviceGroupModel(null);
+            devicesService.save(device);
+        }
+
+        // Ahora eliminar el grupo
         deviceGroupRepository.deleteById(deviceGroupId);
     }
 }
