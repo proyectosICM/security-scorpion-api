@@ -1,6 +1,8 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.models.DeviceGroupModel;
 import com.icm.security_scorpion_api.models.DevicesModel;
+import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import com.icm.security_scorpion_api.repositories.DevicesRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -16,11 +18,35 @@ import java.util.Optional;
 public class DevicesService {
     @Autowired
     private DevicesRepository devicesRepository;
+    @Autowired
+    private DeviceGroupRepository deviceGroupRepository;
 
     private DevicesModel getDeviceById(Long devicesId) {
         return devicesRepository.findById(devicesId)
                 .orElseThrow(() -> new EntityNotFoundException("Device with id " + devicesId + " not found"));
     }
+
+    public List<DevicesModel> findByDeviceGroupModelId(Long deviceGroupModelId) {
+        return devicesRepository.findByDeviceGroupModelId(deviceGroupModelId);
+    }
+
+    /* Basic Autenticacion Service */
+    /* Temporal */
+    public List<DevicesModel> findByDeviceGroupModelIdAuth(String username, String password) {
+        Optional<DeviceGroupModel> dg = deviceGroupRepository.findByUsernameAndPassword(username, password);
+
+        if (dg.isPresent()) {
+            if (dg.get().isActive()) {
+                return devicesRepository.findByDeviceGroupModelId(dg.get().getId());
+            } else {
+                throw new EntityNotFoundException("The device group is not active.");
+            }
+        } else {
+            throw new EntityNotFoundException("Invalid username or password.");
+        }
+    }
+    /* --- */
+
 
     public Optional<DevicesModel> findById(Long devicesId){
         return devicesRepository.findById(devicesId);

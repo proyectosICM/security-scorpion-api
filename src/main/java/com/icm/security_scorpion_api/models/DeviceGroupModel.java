@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -11,13 +12,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "devices")
-public class DevicesModel {
+    @Table(name = "devices-group")
+public class DeviceGroupModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
@@ -27,15 +29,25 @@ public class DevicesModel {
     @Size(max = 100, message = "Name must not exceed 100 characters")
     @Pattern(regexp = "^[a-zA-Z0-9\\s-]+$", message = "Name must be alphanumeric and can include spaces and hyphens")
     @Column(nullable = false, length = 100)
-    private String nameDevice;
+    private String nameGroup;
 
-    @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$", message = "Invalid IP address format")
-    @Column(nullable = true, length = 15)
-    private String ipLocal;
+    @NotBlank(message = "User is required")
+    @Size(max = 50, message = "User must not exceed 50 characters")
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "User must be alphanumeric")
+    @Column(nullable = false, length = 50, unique = true)
+    private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "device_group", referencedColumnName = "id", nullable = true)
-    private DeviceGroupModel deviceGroupModel;
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private boolean isActive = true;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "deviceGroupModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DevicesModel> devices;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -43,5 +55,4 @@ public class DevicesModel {
 
     @UpdateTimestamp
     private ZonedDateTime updatedAt;
-
 }

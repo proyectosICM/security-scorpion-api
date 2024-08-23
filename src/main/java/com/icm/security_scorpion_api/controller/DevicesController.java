@@ -21,6 +21,27 @@ public class DevicesController {
     @Autowired
     private DevicesService devicesService;
 
+
+    @GetMapping("/auth")
+    public ResponseEntity<?> findByDeviceGroupModelIdAuth(@RequestParam String username,
+                                                          @RequestParam String password) {
+        try {
+            List<DevicesModel> devices = devicesService.findByDeviceGroupModelIdAuth(username, password);
+            return new ResponseEntity<>(devices, HttpStatus.OK);
+        } catch (EntityNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @GetMapping("/group/{deviceGroupModelId}")
+    public ResponseEntity<List<DevicesModel>> findByDeviceGroupModelId(@PathVariable @NotNull Long deviceGroupModelId) {
+        List<DevicesModel> devices = devicesService.findByDeviceGroupModelId(deviceGroupModelId);
+        if (devices.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(devices, HttpStatus.OK);
+    }
+
     @GetMapping("/{devicesId}")
     public ResponseEntity<DevicesModel> findById(@PathVariable @NotNull Long devicesId) {
         return devicesService.findById(devicesId )
