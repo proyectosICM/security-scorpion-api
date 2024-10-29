@@ -1,4 +1,4 @@
-package com.icm.security_scorpion_api.controller;
+package com.icm.security_scorpion_api.controllers;
 
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
@@ -7,7 +7,7 @@ import com.icm.security_scorpion_api.services.DevicesService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/devices")
+@RequiredArgsConstructor
 public class DevicesController {
-    @Autowired
-    private DevicesService devicesService;
 
+    private final DevicesService devicesService;
 
     @GetMapping("/auth")
     public ResponseEntity<?> findByDeviceGroupModelIdAuth(@RequestParam String username,

@@ -1,13 +1,11 @@
-package com.icm.security_scorpion_api.controller;
+package com.icm.security_scorpion_api.controllers;
 
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
-import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.services.DeviceGroupService;
-import com.icm.security_scorpion_api.services.DevicesService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,9 +18,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/device-groups")
+@RequiredArgsConstructor
 public class DeviceGroupController {
-    @Autowired
-    private DeviceGroupService deviceGroupService;
+
+    private final DeviceGroupService deviceGroupService;
 
     @GetMapping("/{deviceGroupId}")
     public ResponseEntity<DeviceGroupModel> findById(@PathVariable @NotNull Long deviceGroupId) {

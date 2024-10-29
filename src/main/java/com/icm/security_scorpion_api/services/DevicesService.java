@@ -8,7 +8,7 @@ import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import com.icm.security_scorpion_api.repositories.DevicesRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DevicesService {
-    @Autowired
-    private DevicesRepository devicesRepository;
-    @Autowired
-    private DeviceGroupRepository deviceGroupRepository;
+
+    private final DevicesRepository devicesRepository;
+
+    private final DeviceGroupRepository deviceGroupRepository;
 
     private DevicesModel getDeviceById(Long devicesId) {
         return devicesRepository.findById(devicesId)

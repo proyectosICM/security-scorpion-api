@@ -6,6 +6,7 @@ import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,15 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DeviceGroupService {
-    @Autowired
-    private DeviceGroupRepository deviceGroupRepository;
+    private final DeviceGroupRepository deviceGroupRepository;
+    private final DevicesService devicesService;
 
-    @Autowired
-    private DevicesService devicesService;
-
-
-    // Helper method to retrieve a DeviceGroupModel by ID, throwing an exception if not found
     private DeviceGroupModel getDeviceGroupById(Long deviceGroupId) {
         return deviceGroupRepository.findById(deviceGroupId)
                 .orElseThrow(() -> new EntityNotFoundException("Device group with id " + deviceGroupId + " not found"));

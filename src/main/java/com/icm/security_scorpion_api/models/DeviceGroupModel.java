@@ -17,28 +17,28 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-    @Table(name = "devices-group")
+@Table(name = "devices_group")
 public class DeviceGroupModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9\\s-]+$", message = "Name must be alphanumeric and can include spaces and hyphens")
-    @Column(nullable = false, length = 100)
+    @Pattern(regexp = "^[a-zA-Z0-9-]+$", message = "Name must be alphanumeric and can include hyphens, but not spaces")
     private String nameGroup;
 
+    @Column(nullable = false, length = 50, unique = true)
     @NotBlank(message = "User is required")
     @Size(max = 50, message = "User must not exceed 50 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "User must be alphanumeric")
-    @Column(nullable = false, length = 50, unique = true)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "User must be alphanumeric and unique, without spaces or special characters")
     private String username;
 
+    @Column(nullable = false, length = 20)
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Column(nullable = false)
+    @Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters long")
     private String password;
 
     @Column(nullable = false)
