@@ -44,6 +44,13 @@ public class DeviceGroupModel {
     @Column(nullable = false)
     private boolean isActive = true;
 
+    @Size(max = 32, message = "SSID should not exceed 32 characters")
+    private String ssidWiFi;
+
+    @Size(max = 63, message = "WiFi password should not exceed 63 characters")
+    private String passwordWiFi;
+
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;

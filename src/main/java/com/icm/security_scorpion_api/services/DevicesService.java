@@ -73,6 +73,12 @@ public class DevicesService {
         return devicesRepository.save(existing);
     }
 
+    public DevicesModel updateIp(Long deviceId, String newIp) {
+        DevicesModel device = getDeviceById(deviceId);
+        device.setIpLocal(newIp);
+        return devicesRepository.save(device);
+    }
+
     public void deleteById(Long companyId){
         devicesRepository.deleteById(companyId);
     }

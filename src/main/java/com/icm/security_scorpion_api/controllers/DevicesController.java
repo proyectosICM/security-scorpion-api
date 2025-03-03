@@ -82,6 +82,15 @@ public class DevicesController {
         }
     }
 
+    @PutMapping("/register-ip/{deviceId}")
+    public ResponseEntity<DevicesModel> registerIp(
+            @PathVariable Long deviceId,
+            @RequestBody @Valid DevicesModel updatedDevice) {
+
+        DevicesModel updated = devicesService.updateIp(deviceId, updatedDevice.getIpLocal());
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/{devicesId}")
     public ResponseEntity<?> delete(@PathVariable @NotNull Long devicesId){
         devicesService.deleteById(devicesId);

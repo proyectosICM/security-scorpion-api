@@ -59,6 +59,18 @@ public class DeviceGroupController {
         }
     }
 
+    @PutMapping("/wifi/{deviceGroupId}")
+    public ResponseEntity<?> changeWifiCredentials(@PathVariable @NotNull Long deviceGroupId,
+                                                   @RequestParam @NotNull String ssid,
+                                                   @RequestParam @NotNull String password) {
+        try {
+            DeviceGroupModel updatedModel = deviceGroupService.changeWifiCredentials(deviceGroupId, ssid, password);
+            return new ResponseEntity<>(updatedModel, HttpStatus.OK);
+        } catch (EntityNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @DeleteMapping("/{deviceGroupId}")
     public ResponseEntity<?> delete(@PathVariable @NotNull Long deviceGroupId) {
         deviceGroupService.deleteById(deviceGroupId);

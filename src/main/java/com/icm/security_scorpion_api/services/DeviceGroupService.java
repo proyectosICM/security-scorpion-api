@@ -56,6 +56,14 @@ public class DeviceGroupService {
         return deviceGroupRepository.save(existing);
     }
 
+    public DeviceGroupModel changeWifiCredentials(Long deviceGroupId, String ssid, String password) {
+        DeviceGroupModel existing = getDeviceGroupById(deviceGroupId);
+        existing.setSsidWiFi(ssid);
+        existing.setPasswordWiFi(password);
+        return deviceGroupRepository.save(existing);
+    }
+
+
     // Delete a DeviceGroupModel by ID
     @Transactional
     public void deleteById(Long deviceGroupId) {
