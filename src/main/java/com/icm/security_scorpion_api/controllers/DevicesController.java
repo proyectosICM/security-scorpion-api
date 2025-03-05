@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.controllers;
 
+import com.icm.security_scorpion_api.dto.UpdateIpRequest;
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DevicesModel;
@@ -85,9 +86,9 @@ public class DevicesController {
     @PutMapping("/register-ip/{deviceId}")
     public ResponseEntity<DevicesModel> registerIp(
             @PathVariable Long deviceId,
-            @RequestBody @Valid DevicesModel updatedDevice) {
+            @RequestBody @Valid UpdateIpRequest updateIpRequest) {
 
-        DevicesModel updated = devicesService.updateIp(deviceId, updatedDevice.getIpLocal());
+        DevicesModel updated = devicesService.updateIp(deviceId, updateIpRequest.getIpLocal());
         return ResponseEntity.ok(updated);
     }
 
