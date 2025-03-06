@@ -1,8 +1,11 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
+import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
 import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
+import com.icm.security_scorpion_api.repositories.DevicesRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -20,6 +23,7 @@ import java.util.Optional;
 public class DeviceGroupService {
     private final DeviceGroupRepository deviceGroupRepository;
     private final DevicesService devicesService;
+    private final DevicesRepository devicesRepository;
 
     private DeviceGroupModel getDeviceGroupById(Long deviceGroupId) {
         return deviceGroupRepository.findById(deviceGroupId)
@@ -41,6 +45,22 @@ public class DeviceGroupService {
         return deviceGroupRepository.findAll(pageable);
     }
 
+    /* Basic Autenticacion Service */
+    /* Temporal */
+    public List<DevicesModel> findByDeviceGroupModelIdAuth(String username, String password) {
+        Optional<DeviceGroupModel> dg = deviceGroupRepository.findByUsernameAndPassword(username, password);
+
+        if (dg.isPresent()) {
+            if (dg.get().isActive()) {
+                return devicesRepository.findByDeviceGroupModelId(dg.get().getId());
+            } else {
+                throw new GroupNotActiveException("The device group is not active.");
+            }
+        } else {
+            throw new InvalidCredentialsException("Invalid username or password.");
+        }
+    }
+    /* --- */
     // Save a new DeviceGroupModel
     public DeviceGroupModel save(@Valid DeviceGroupModel deviceGroupModel) {
         return deviceGroupRepository.save(deviceGroupModel);

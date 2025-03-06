@@ -33,24 +33,6 @@ public class DevicesService {
         return devicesRepository.findByDeviceGroupModelId(deviceGroupModelId);
     }
 
-    /* Basic Autenticacion Service */
-    /* Temporal */
-    public List<DevicesModel> findByDeviceGroupModelIdAuth(String username, String password) {
-        Optional<DeviceGroupModel> dg = deviceGroupRepository.findByUsernameAndPassword(username, password);
-
-        if (dg.isPresent()) {
-            if (dg.get().isActive()) {
-                return devicesRepository.findByDeviceGroupModelId(dg.get().getId());
-            } else {
-                throw new GroupNotActiveException("The device group is not active.");
-            }
-        } else {
-            throw new InvalidCredentialsException("Invalid username or password.");
-        }
-    }
-    /* --- */
-
-
     public Optional<DevicesModel> findById(Long devicesId){
         return devicesRepository.findById(devicesId);
     }

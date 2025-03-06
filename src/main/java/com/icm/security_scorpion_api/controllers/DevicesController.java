@@ -25,19 +25,6 @@ public class DevicesController {
 
     private final DevicesService devicesService;
 
-    @GetMapping("/auth")
-    public ResponseEntity<?> findByDeviceGroupModelIdAuth(@RequestParam String username,
-                                                          @RequestParam String password) {
-        try {
-            List<DevicesModel> devices = devicesService.findByDeviceGroupModelIdAuth(username, password);
-            return new ResponseEntity<>(devices, HttpStatus.OK);
-        } catch (InvalidCredentialsException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
-        } catch (GroupNotActiveException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
-        }
-    }
-
 
     @GetMapping("/group/{deviceGroupModelId}")
     public ResponseEntity<List<DevicesModel>> findByDeviceGroupModelId(@PathVariable @NotNull Long deviceGroupModelId) {
