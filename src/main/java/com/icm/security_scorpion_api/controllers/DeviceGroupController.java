@@ -61,7 +61,7 @@ public class DeviceGroupController {
         }
     }
 
-    @GetMapping("/auth-web")
+    @PostMapping("/auth-web")
     public ResponseEntity<?> authWeb(@RequestBody GroupCredentialsDTO groupCredentialsDTO) {
         Map<String, Object> response = deviceGroupService.authWeb(groupCredentialsDTO);
 
