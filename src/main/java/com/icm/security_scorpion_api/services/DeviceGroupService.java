@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.dto.GroupCredentialsDTO;
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
@@ -80,6 +81,13 @@ public class DeviceGroupService {
         DeviceGroupModel existing = getDeviceGroupById(deviceGroupId);
         existing.setSsidWiFi(ssid);
         existing.setPasswordWiFi(password);
+        return deviceGroupRepository.save(existing);
+    }
+
+    public DeviceGroupModel changeGroupCredentials(Long deviceGroupId, GroupCredentialsDTO groupCredentialsDTO) {
+        DeviceGroupModel existing = getDeviceGroupById(deviceGroupId);
+        existing.setUsername(groupCredentialsDTO.getUsername());
+        existing.setPassword(groupCredentialsDTO.getPassword());
         return deviceGroupRepository.save(existing);
     }
 

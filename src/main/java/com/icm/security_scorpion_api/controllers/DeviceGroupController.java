@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.controllers;
 
+import com.icm.security_scorpion_api.dto.GroupCredentialsDTO;
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
@@ -81,6 +82,17 @@ public class DeviceGroupController {
                                                    @RequestParam @NotNull String password) {
         try {
             DeviceGroupModel updatedModel = deviceGroupService.changeWifiCredentials(deviceGroupId, ssid, password);
+            return new ResponseEntity<>(updatedModel, HttpStatus.OK);
+        } catch (EntityNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/credentials/{deviceGroupId}")
+    public ResponseEntity<?> changeGroupCredentials(@PathVariable @NotNull Long deviceGroupId,
+                                                   @RequestBody @Valid GroupCredentialsDTO groupCredentialsDTO) {
+        try {
+            DeviceGroupModel updatedModel = deviceGroupService.changeGroupCredentials(deviceGroupId, groupCredentialsDTO);
             return new ResponseEntity<>(updatedModel, HttpStatus.OK);
         } catch (EntityNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
