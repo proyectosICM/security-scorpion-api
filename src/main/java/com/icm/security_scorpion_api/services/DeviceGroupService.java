@@ -17,7 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -61,6 +63,19 @@ public class DeviceGroupService {
         } else {
             throw new InvalidCredentialsException("Invalid username or password.");
         }
+    }
+
+    public Map<String, Object> authWeb(GroupCredentialsDTO groupCredentialsDTO) {
+        Optional<DeviceGroupModel> deviceGroup = deviceGroupRepository.findByUsernameAndPassword(groupCredentialsDTO.getUsername(), groupCredentialsDTO.getPassword());
+
+        if (deviceGroup.isPresent()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("username", deviceGroup.get().getUsername());
+            response.put("id", deviceGroup.get().getId());
+            return response;
+        }
+
+        return null; // Retorna null si no encuentra el usuario
     }
     /* --- */
     // Save a new DeviceGroupModel

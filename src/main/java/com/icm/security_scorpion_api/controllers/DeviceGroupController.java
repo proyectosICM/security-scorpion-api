@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/device-groups")
@@ -60,6 +61,17 @@ public class DeviceGroupController {
         }
     }
 
+    @GetMapping("/auth-web")
+    public ResponseEntity<?> authWeb(@RequestBody GroupCredentialsDTO groupCredentialsDTO) {
+        Map<String, Object> response = deviceGroupService.authWeb(groupCredentialsDTO);
+
+        if (response != null) {
+            return ResponseEntity.ok(response); // 200 OK con el JSON
+        } else {
+            return ResponseEntity.status(401).body("Invalid credentials"); // 401 Unauthorized
+        }
+    }
+
     @PostMapping
     public ResponseEntity<DeviceGroupModel> save(@RequestBody @Valid DeviceGroupModel deviceGroupModel) {
         DeviceGroupModel savedModel = deviceGroupService.save(deviceGroupModel);
@@ -79,7 +91,7 @@ public class DeviceGroupController {
 
     @PutMapping("/wifi/{deviceGroupId}")
     public ResponseEntity<?> changeWifiCredentials(@PathVariable @NotNull Long deviceGroupId,
-                                                   @RequestBody @Valid WifiCredentialsDTO wifiCredentialsDTO) {
+                                                       @RequestBody @Valid WifiCredentialsDTO wifiCredentialsDTO) {
         try {
             DeviceGroupModel updatedModel = deviceGroupService.changeWifiCredentials(deviceGroupId, wifiCredentialsDTO);
             return new ResponseEntity<>(updatedModel, HttpStatus.OK);
