@@ -33,6 +33,11 @@ public class DevicesService {
         return devicesRepository.findByDeviceGroupModelId(deviceGroupModelId);
     }
 
+    public List<DevicesModel> findGroupByDeviceId(Long deviceId) {
+        DevicesModel existing = getDeviceById(deviceId);
+        return devicesRepository.findByDeviceGroupModelId(deviceId);
+    }
+
     public Optional<DevicesModel> findById(Long devicesId){
         return devicesRepository.findById(devicesId);
     }
