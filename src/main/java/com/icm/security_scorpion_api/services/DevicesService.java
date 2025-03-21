@@ -3,6 +3,7 @@ package com.icm.security_scorpion_api.services;
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
+import com.icm.security_scorpion_api.models.DeviceType;
 import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import com.icm.security_scorpion_api.repositories.DevicesRepository;
@@ -35,7 +36,7 @@ public class DevicesService {
 
     public List<DevicesModel> findGroupByDeviceId(Long deviceId) {
         DevicesModel existing = getDeviceById(deviceId);
-        return devicesRepository.findByDeviceGroupModelId(deviceId);
+        return devicesRepository.findByDeviceGroupModelIdAndTypeNot(deviceId, DeviceType.ALARM);
     }
 
     public Optional<DevicesModel> findById(Long devicesId){

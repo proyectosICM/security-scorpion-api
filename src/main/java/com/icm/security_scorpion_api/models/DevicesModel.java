@@ -38,6 +38,10 @@ public class DevicesModel {
     @JoinColumn(name = "device_group", referencedColumnName = "id")
     private DeviceGroupModel deviceGroupModel;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private DeviceType type;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private ZonedDateTime createdAt;
