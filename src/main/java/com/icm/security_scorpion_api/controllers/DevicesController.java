@@ -35,7 +35,7 @@ public class DevicesController {
         return new ResponseEntity<>(devices, HttpStatus.OK);
     }
 
-    @GetMapping("/group-device/{deviceId}")
+    @GetMapping("/group-devices/{deviceId}")
     public ResponseEntity<List<DevicesModel>> findGroupByDeviceId(@PathVariable @NotNull Long deviceId) {
         List<DevicesModel> devices = devicesService.findGroupByDeviceId(deviceId);
         if (devices.isEmpty()) {
