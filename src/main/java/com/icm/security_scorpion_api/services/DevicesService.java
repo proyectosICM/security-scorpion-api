@@ -60,7 +60,16 @@ public class DevicesService {
         DevicesModel existing = getDeviceById(devicesId);
         existing.setNameDevice(devicesModel.getNameDevice());
         existing.setIpLocal(devicesModel.getIpLocal());
-        return devicesRepository.save(existing);
+
+        DevicesModel updatedDevice = devicesRepository.save(existing);
+
+        // 📢 Enviar mensaje WebSocket con el ID del grupo
+        if (existing.getDeviceGroupModel() != null) {
+            String groupId = existing.getDeviceGroupModel().getId().toString();
+            webSocketHandler.sendMessageToAll("actlist:" + groupId);
+        }
+
+        return existing;
     }
 
     public DevicesModel updateIp(Long deviceId, String newIp) {
