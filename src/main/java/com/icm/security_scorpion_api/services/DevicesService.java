@@ -69,7 +69,7 @@ public class DevicesService {
             webSocketHandler.sendMessageToAll("actlist:" + groupId);
         }
 
-        return existing;
+        return updatedDevice;
     }
 
     public DevicesModel updateIp(Long deviceId, String newIp) {
