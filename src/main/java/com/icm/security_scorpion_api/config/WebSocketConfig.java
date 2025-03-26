@@ -14,4 +14,9 @@ public class WebSocketConfig implements WebSocketConfigurer {
         registry.addHandler(new MyWebSocketHandler(), "/ws")
                 .setAllowedOrigins("*");
     }
+
+    @Bean
+    public MyWebSocketHandler myWebSocketHandler() {
+        return new MyWebSocketHandler();
+    }
 }
