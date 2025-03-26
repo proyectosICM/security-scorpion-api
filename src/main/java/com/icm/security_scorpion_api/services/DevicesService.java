@@ -62,13 +62,11 @@ public class DevicesService {
         existing.setIpLocal(devicesModel.getIpLocal());
 
         DevicesModel updatedDevice = devicesRepository.save(existing);
-        System.out.println("a");
+
         // 📢 Enviar mensaje WebSocket con el ID del grupo
         if (existing.getDeviceGroupModel() != null) {
-            System.out.println("b");
             String groupId = existing.getDeviceGroupModel().getId().toString();
             webSocketHandler.sendMessageToAll("actlist:" + groupId);
-            System.out.println("c");
         }
 
         return updatedDevice;

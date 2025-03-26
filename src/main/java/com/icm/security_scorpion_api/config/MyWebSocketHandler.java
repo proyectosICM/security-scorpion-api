@@ -39,11 +39,14 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void sendMessageToAll(String message) {
+        System.out.println("1");
         synchronized (sessions) {
             for (WebSocketSession session : sessions) {
                 if (session.isOpen()) {
+                    System.out.println("2");
                     try {
                         session.sendMessage(new TextMessage(message));
+                        System.out.println("3");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
