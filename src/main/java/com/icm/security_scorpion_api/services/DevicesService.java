@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.config.MyWebSocketHandler;
 import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
 import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
@@ -24,6 +25,7 @@ public class DevicesService {
     private final DevicesRepository devicesRepository;
 
     private final DeviceGroupRepository deviceGroupRepository;
+    private final MyWebSocketHandler webSocketHandler;
 
     private DevicesModel getDeviceById(Long devicesId) {
         return devicesRepository.findById(devicesId)
@@ -64,7 +66,15 @@ public class DevicesService {
     public DevicesModel updateIp(Long deviceId, String newIp) {
         DevicesModel device = getDeviceById(deviceId);
         device.setIpLocal(newIp);
-        return devicesRepository.save(device);
+        DevicesModel updatedDevice = devicesRepository.save(device);
+
+        // 📢 Enviar mensaje WebSocket con el ID del grupo
+        if (device.getDeviceGroupModel() != null) {
+            String groupId = device.getDeviceGroupModel().getId().toString();
+            webSocketHandler.sendMessageToAll("actlist:" + groupId);
+        }
+
+        return updatedDevice;
     }
 
     public void deleteById(Long companyId){
