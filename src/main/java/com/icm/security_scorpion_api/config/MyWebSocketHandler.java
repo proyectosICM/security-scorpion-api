@@ -58,4 +58,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
                     System.out.println("Sesión cerrada: " + session.getId());
                 }
             }
+        }
+    }
 }
