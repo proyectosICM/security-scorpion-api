@@ -39,17 +39,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void sendMessageToAll(String message) {
-        System.out.println("1 - Enviando mensaje a todos");
-
         synchronized (sessions) {
-            System.out.println("Sesiones activas: " + sessions.size());
-
             for (WebSocketSession session : sessions) {
                 if (session.isOpen()) {
-                    System.out.println("2 - Enviando a sesión: " + session.getId());
                     try {
                         session.sendMessage(new TextMessage(message));
-                        System.out.println("3 - Mensaje enviado correctamente a " + session.getId());
                     } catch (IOException e) {
                         System.out.println("Error enviando mensaje a " + session.getId());
                         e.printStackTrace();
