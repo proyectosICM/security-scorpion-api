@@ -28,23 +28,23 @@ public class DeviceGroupController {
 
     private final DeviceGroupService deviceGroupService;
 
-    @GetMapping("/{deviceGroupId}")
-    public ResponseEntity<DeviceGroupModel> findById(@PathVariable @NotNull Long deviceGroupId) {
-        return deviceGroupService.findById(deviceGroupId)
-                .map(group -> new ResponseEntity<>(group, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
     @GetMapping
     public List<DeviceGroupModel> findAll() {
         return deviceGroupService.findAll();
     }
 
-    @GetMapping("/page")
+    @GetMapping("/paged")
     public Page<DeviceGroupModel> findAll(@RequestParam(defaultValue = "0") int page,
                                           @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return deviceGroupService.findAll(pageable);
+    }
+
+    @GetMapping("/{deviceGroupId}")
+    public ResponseEntity<DeviceGroupModel> findById(@PathVariable @NotNull Long deviceGroupId) {
+        return deviceGroupService.findById(deviceGroupId)
+                .map(group -> new ResponseEntity<>(group, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/auth")

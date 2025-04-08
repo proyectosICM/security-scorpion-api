@@ -1,10 +1,7 @@
 package com.icm.security_scorpion_api.services;
 
 import com.icm.security_scorpion_api.config.MyWebSocketHandler;
-import com.icm.security_scorpion_api.exceptions.GroupNotActiveException;
-import com.icm.security_scorpion_api.exceptions.InvalidCredentialsException;
-import com.icm.security_scorpion_api.models.DeviceGroupModel;
-import com.icm.security_scorpion_api.models.DeviceType;
+import com.icm.security_scorpion_api.enums.DeviceType;
 import com.icm.security_scorpion_api.models.DevicesModel;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
 import com.icm.security_scorpion_api.repositories.DevicesRepository;

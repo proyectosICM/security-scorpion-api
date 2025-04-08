@@ -25,6 +25,25 @@ public class DevicesController {
 
     private final DevicesService devicesService;
 
+    @GetMapping
+    public List<DevicesModel> findAll() {
+        return devicesService.findAll();
+    }
+
+    @GetMapping("/paged")
+    public Page<DevicesModel> findAll(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return devicesService.findAll(pageable);
+    }
+
+    @GetMapping("/{devicesId}")
+    public ResponseEntity<DevicesModel> findById(@PathVariable @NotNull Long devicesId) {
+        return devicesService.findById(devicesId )
+                .map(company -> new ResponseEntity<>(company, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 
     @GetMapping("/group/{deviceGroupModelId}")
     public ResponseEntity<List<DevicesModel>> findByDeviceGroupModelId(@PathVariable @NotNull Long deviceGroupModelId) {
@@ -42,25 +61,6 @@ public class DevicesController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(devices, HttpStatus.OK);
-    }
-
-    @GetMapping("/{devicesId}")
-    public ResponseEntity<DevicesModel> findById(@PathVariable @NotNull Long devicesId) {
-        return devicesService.findById(devicesId )
-                .map(company -> new ResponseEntity<>(company, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @GetMapping
-    public List<DevicesModel> findAll() {
-        return devicesService.findAll();
-    }
-
-    @GetMapping("/page")
-    public Page<DevicesModel> findAll(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return devicesService.findAll(pageable);
     }
 
     @PostMapping

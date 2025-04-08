@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.models;
 
+import com.icm.security_scorpion_api.enums.DeviceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

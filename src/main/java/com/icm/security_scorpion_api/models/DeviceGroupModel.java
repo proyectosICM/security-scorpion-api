@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.models;
 
+import com.icm.security_scorpion_api.enums.GroupRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -50,6 +51,9 @@ public class DeviceGroupModel {
     @Size(max = 63, message = "WiFi password should not exceed 63 characters")
     private String passwordWiFi;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 10)
+    private GroupRole role;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

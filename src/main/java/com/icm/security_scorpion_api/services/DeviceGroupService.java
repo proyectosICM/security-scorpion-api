@@ -72,6 +72,7 @@ public class DeviceGroupService {
             Map<String, Object> response = new HashMap<>();
             response.put("username", deviceGroup.get().getUsername());
             response.put("id", deviceGroup.get().getId());
+            response.put("role", deviceGroup.get().getRole());
             return response;
         }
 
