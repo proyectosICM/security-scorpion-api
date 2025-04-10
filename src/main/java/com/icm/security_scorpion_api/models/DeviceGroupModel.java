@@ -35,7 +35,7 @@ public class DeviceGroupModel {
     @NotBlank(message = "User is required")
     @Size(max = 50, message = "User must not exceed 50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "User must be alphanumeric and unique, without spaces or special characters")
-    private String username;
+    private String username; ´-´-´-´-´-´-´-´-´-´-´-´-´-´-´-
 
     @Column(nullable = false, length = 20)
     @NotBlank(message = "Password is required")
