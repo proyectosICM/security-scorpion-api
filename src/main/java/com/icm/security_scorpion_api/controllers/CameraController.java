@@ -6,6 +6,7 @@ import com.icm.security_scorpion_api.services.CameraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,12 +45,13 @@ public class CameraController {
     }
 
     @GetMapping("/by-group-paged/{groupId}")
-    public ResponseEntity<Page<CameraModel>> findByGroupId(
+    public ResponseEntity<Page<CameraDTO>> findByGroupId(
             @PathVariable Long groupId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ResponseEntity.ok(cameraService.findByDeviceGroupModelId(groupId, PageRequest.of(page, size)));
+        Page<CameraDTO> cameras = cameraService.findByDeviceGroupModelId(groupId, PageRequest.of(page, size));
+        return ResponseEntity.ok(cameras);
     }
 
 

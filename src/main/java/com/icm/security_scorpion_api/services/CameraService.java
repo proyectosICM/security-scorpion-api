@@ -41,8 +41,9 @@ public class CameraService {
                 .collect(Collectors.toList());
     }
 
-    public Page<CameraModel> findByDeviceGroupModelId(Long deviceGroupId, Pageable pageable) {
-        return camerasRepository.findByDeviceGroupModelId(deviceGroupId, pageable);
+    public Page<CameraDTO> findByDeviceGroupModelId(Long deviceGroupId, Pageable pageable) {
+        return camerasRepository.findByDeviceGroupModelId(deviceGroupId, pageable)
+                .map(cameraMapper::toDto);
     }
 
     public CameraModel save(CameraModel camera) {
