@@ -61,6 +61,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- Mapstruct  -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.5.5.Final</version>
+		</dependency>
+
 		<!-- DevTools
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -1,5 +1,7 @@
 package com.icm.security_scorpion_api.services;
 
+import com.icm.security_scorpion_api.dto.CameraDTO;
+import com.icm.security_scorpion_api.mapper.CameraMapper;
 import com.icm.security_scorpion_api.models.CameraModel;
 import com.icm.security_scorpion_api.repositories.CamerasRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,11 +11,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CameraService {
     private final CamerasRepository camerasRepository;
+    private final CameraMapper cameraMapper;
+
     public List<CameraModel> findAll() {
         return camerasRepository.findAll();
     }
@@ -28,8 +33,12 @@ public class CameraService {
                 .orElseThrow(() -> new EntityNotFoundException("Camera with id " + cameraId + " not found"));
     }
 
-    public List<CameraModel> findByDeviceGroupModelId(Long deviceGroupModelId) {
-        return camerasRepository.findByDeviceGroupModelId(deviceGroupModelId);
+    public List<CameraDTO> findByDeviceGroupModelId(Long deviceGroupModelId) {
+        List<CameraModel> cameras = camerasRepository.findByDeviceGroupModelId(deviceGroupModelId);
+
+        return cameras.stream()
+                .map(cameraMapper::toDto) // Convierte cada entidad a DTO
+                .collect(Collectors.toList());
     }
 
     public Page<CameraModel> findByDeviceGroupModelId(Long deviceGroupId, Pageable pageable) {

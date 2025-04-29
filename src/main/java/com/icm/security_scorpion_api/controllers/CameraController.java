@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.controllers;
 
+import com.icm.security_scorpion_api.dto.CameraDTO;
 import com.icm.security_scorpion_api.models.CameraModel;
 import com.icm.security_scorpion_api.services.CameraService;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cameras")
+@RequestMapping("api/cameras")
 @RequiredArgsConstructor
 public class CameraController {
 
@@ -38,7 +39,7 @@ public class CameraController {
     }
 
     @GetMapping("/by-group/{groupId}")
-    public ResponseEntity<List<CameraModel>> findAllByGroupId(@PathVariable Long groupId) {
+    public ResponseEntity<List<CameraDTO>> findAllByGroupId(@PathVariable Long groupId) {
         return ResponseEntity.ok(cameraService.findByDeviceGroupModelId(groupId));
     }
 

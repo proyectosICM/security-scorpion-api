@@ -1,5 +1,6 @@
 package com.icm.security_scorpion_api.repositories;
 
+import com.icm.security_scorpion_api.dto.CameraDTO;
 import com.icm.security_scorpion_api.enums.DeviceType;
 import com.icm.security_scorpion_api.models.CameraModel;
 import org.springframework.data.domain.Page;
