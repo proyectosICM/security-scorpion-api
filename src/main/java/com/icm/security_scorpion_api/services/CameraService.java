@@ -37,13 +37,13 @@ public class CameraService {
         List<CameraModel> cameras = camerasRepository.findByDeviceGroupModelId(deviceGroupModelId);
 
         return cameras.stream()
-                .map(cameraMapper::toDto) // Convierte cada entidad a DTO
+                .map(cameraMapper::mapToDTO) // Convierte cada entidad a DTO
                 .collect(Collectors.toList());
     }
 
     public Page<CameraDTO> findByDeviceGroupModelId(Long deviceGroupId, Pageable pageable) {
         return camerasRepository.findByDeviceGroupModelId(deviceGroupId, pageable)
-                .map(cameraMapper::toDto);
+                .map(cameraMapper::mapToDTO);
     }
 
     public CameraModel save(CameraModel camera) {
