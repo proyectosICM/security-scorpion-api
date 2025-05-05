@@ -34,8 +34,10 @@ public class   CameraMapper {
 
         if (model.getDevicesModel() != null) {
             dto.setDeviceId(model.getDevicesModel().getId());
+            dto.setDeviceIp(model.getDevicesModel().getIpLocal());
         } else {
             dto.setDeviceId(null);
+            dto.setDeviceIp(null);
         }
 
 

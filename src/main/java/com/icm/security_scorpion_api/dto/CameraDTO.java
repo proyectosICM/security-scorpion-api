@@ -25,4 +25,6 @@ public class CameraDTO {
     private Long deviceGroupId;
 
     private Long deviceId;
+
+    private String deviceIp;
 }
