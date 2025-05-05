@@ -32,6 +32,13 @@ public class   CameraMapper {
             dto.setDeviceGroupId(null);
         }
 
+        if (model.getDevicesModel() != null) {
+            dto.setDeviceId(model.getDevicesModel().getId());
+        } else {
+            dto.setDeviceId(null);
+        }
+
+
         return dto;
     }
 

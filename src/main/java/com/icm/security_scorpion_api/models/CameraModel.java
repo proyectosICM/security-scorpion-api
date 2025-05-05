@@ -34,5 +34,7 @@ public class CameraModel {
     @JoinColumn(name = "device_group", referencedColumnName = "id")
     private DeviceGroupModel deviceGroupModel;
 
-
+    @ManyToOne
+    @JoinColumn(name = "device", referencedColumnName = "id")
+    private DevicesModel devicesModel;
 }

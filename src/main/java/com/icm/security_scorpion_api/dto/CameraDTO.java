@@ -23,4 +23,6 @@ public class CameraDTO {
     private String passwordEncrypted;
 
     private Long deviceGroupId;
+
+    private Long deviceId;
 }
