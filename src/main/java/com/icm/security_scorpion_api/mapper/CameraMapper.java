@@ -3,9 +3,7 @@ package com.icm.security_scorpion_api.mapper;
 import com.icm.security_scorpion_api.dto.CameraDTO;
 import com.icm.security_scorpion_api.models.CameraModel;
 import com.icm.security_scorpion_api.models.DeviceGroupModel;
-import com.icm.security_scorpion_api.repositories.CamerasRepository;
 import com.icm.security_scorpion_api.repositories.DeviceGroupRepository;
-import com.icm.security_scorpion_api.repositories.DevicesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

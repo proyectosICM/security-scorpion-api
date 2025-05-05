@@ -33,4 +33,6 @@ public class CameraModel {
     @ManyToOne
     @JoinColumn(name = "device_group", referencedColumnName = "id")
     private DeviceGroupModel deviceGroupModel;
+
+
 }
