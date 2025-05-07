@@ -57,6 +57,7 @@ public class DevicesService {
         DevicesModel existing = getDeviceById(devicesId);
         existing.setNameDevice(devicesModel.getNameDevice());
         existing.setIpLocal(devicesModel.getIpLocal());
+        existing.setType(devicesModel.getType());
 
         DevicesModel updatedDevice = devicesRepository.save(existing);
 
