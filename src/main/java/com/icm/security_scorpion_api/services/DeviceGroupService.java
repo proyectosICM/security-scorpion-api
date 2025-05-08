@@ -91,6 +91,7 @@ public class DeviceGroupService {
         existing.setUsername(deviceGroupModel.getUsername());
         existing.setPassword(deviceGroupModel.getPassword());
         existing.setActive(deviceGroupModel.isActive());
+        existing.setRole(deviceGroupModel.getRole());
         return deviceGroupRepository.save(existing);
     }
 
